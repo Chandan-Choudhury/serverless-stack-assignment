@@ -42,8 +42,8 @@ export async function handler() {
       }
       data.Reservations.forEach(function (reservation: any) {
         var localData = {
-          InstanceName: "",
-          InstanceId: "",
+          InstanceName: "", // Name of the instance
+          InstanceId: "", // Instance ID
           State: "", // State of the instance.
           InstanceType: "", // Type of instance (t2.micro).
           KeyName: "", // Pem file name.
@@ -52,7 +52,7 @@ export async function handler() {
           PublicIpAddress: "", // Public IP address of the instance.
           Region: "", // Region of the instance.
         };
-        // console.log(reservation.Instances[0].InstanceId);
+
         reservation.Instances.forEach(function (instance: any) {
           if (instance.InstanceId[0] !== undefined) {
             localData.InstanceName = instance.Tags[0].Value;
@@ -74,7 +74,7 @@ export async function handler() {
   }
   function putItemIntoTable(data: any) {
     // console.log("Data from ec2 instances in put function", data);
-    AWS.config.update({ region: "ap-south-1" });
+    // AWS.config.update({ region: "ap-south-1" });
     var dynamodb = new AWS.DynamoDB();
     data.forEach(function (item: any) {
       var params = {

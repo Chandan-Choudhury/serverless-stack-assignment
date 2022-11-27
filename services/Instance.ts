@@ -1,13 +1,13 @@
 type Instance = {
   InstanceId: string;
   InstanceName: string;
-  State: string;
+  InstanceState: string;
   InstanceType: string;
   KeyName: string;
   AvailabilityZone: string;
   LaunchTime: string;
   PublicIpAddress: string;
-  Region: string;
+  InstanceRegion: string;
 };
 
 export default Instance;

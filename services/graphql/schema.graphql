@@ -1,24 +1,24 @@
 type Instance {
   InstanceId: ID!;
   InstanceName: String!;
-  State: String!;
+  InstanceState: String!;
   InstanceType: String!;
   KeyName: String!;
   AvailabilityZone: String!;
   LaunchTime: String!;
   PublicIpAddress: String!;
-  Region: String!;
+  InstanceRegion: String!;
 }
 
 type Query {
   listInstances: [Instance]
   getInstanceByInstanceId(InstanceId: String!): Instance
   getInstanceByName(InstanceName: String!): [Instance]
-  getInstanceByState(State: String!): Instance
-  getInstanceByType(InstanceType: String!): Instance
-  getInstanceByKeyName(KeyName: String!): Instance
-  getInstanceByZone(AvailabilityZone: String!): Instance
-  getInstanceByLaunchTime(LaunchTime: String!): Instance
+  getInstanceByState(InstanceState: String!): [Instance]
+  getInstanceByType(InstanceType: String!): [Instance]
+  getInstanceByKeyName(KeyName: String!): [Instance]
+  getInstanceByZone(AvailabilityZone: String!): [Instance]
+  getInstanceByLaunchTime(LaunchTime: String!): [Instance]
   getInstanceByPublicIpAddress(PublicIpAddress: String!): Instance
-  getInstanceByRegion(Region: String!): Instance
+  getInstanceByRegion(InstanceRegion: String!): [Instance]
 }

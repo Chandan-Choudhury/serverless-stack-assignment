@@ -18,13 +18,13 @@ type AppSyncEvent = {
     instance: Instance;
     InstanceId: string;
     InstanceName: string;
-    State: string;
+    InstanceState: string;
     InstanceType: string;
     KeyName: string;
     AvailabilityZone: string;
     LaunchTime: string;
     PublicIpAddress: string;
-    Region: string;
+    InstanceRegion: string;
   };
 };
 
@@ -39,7 +39,7 @@ export async function handler(
     case "getInstanceByName":
       return await getInstanceByName(event.arguments.InstanceName);
     case "getInstanceByState":
-      return await getInstanceByState(event.arguments.State);
+      return await getInstanceByState(event.arguments.InstanceState);
     case "getInstanceByType":
       return await getInstanceByType(event.arguments.InstanceType);
     case "getInstanceByKeyName":
@@ -53,7 +53,7 @@ export async function handler(
         event.arguments.PublicIpAddress
       );
     case "getInstanceByRegion":
-      return await getInstanceByRegion(event.arguments.Region);
+      return await getInstanceByRegion(event.arguments.InstanceRegion);
     default:
       return null;
   }

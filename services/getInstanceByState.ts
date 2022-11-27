@@ -8,10 +8,10 @@ export default async function getInstanceByState(
 ): Promise<Instance | undefined> {
   const params = {
     TableName: "EC2_Data",
-    IndexName: "State-index",
-    KeyConditionExpression: "State = :State",
+    IndexName: "InstanceState-index",
+    KeyConditionExpression: "InstanceState = :InstanceState",
     ExpressionAttributeValues: {
-      ":State": InstanceState,
+      ":InstanceState": InstanceState,
     },
   };
 

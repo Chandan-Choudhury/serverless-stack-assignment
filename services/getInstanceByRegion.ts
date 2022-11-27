@@ -8,10 +8,10 @@ export default async function getInstanceByRegion(
 ): Promise<Instance | undefined> {
   const params = {
     TableName: "EC2_Data",
-    IndexName: "Region-index",
-    KeyConditionExpression: "Region = :Region",
+    IndexName: "InstanceRegion-index",
+    KeyConditionExpression: "InstanceRegion = :InstanceRegion",
     ExpressionAttributeValues: {
-      ":Region": InstanceRegion,
+      ":InstanceRegion": InstanceRegion,
     },
   };
 

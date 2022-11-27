@@ -37,3 +37,95 @@ npm start
 ```
 console.sst.dev
 ```
+
+### Some GraphQL Queries to test :
+
+#### 1. Fetch all data from table :
+
+```
+query listInstances {
+  listInstances{
+    InstanceId
+    InstanceName
+    InstanceState
+    InstanceType
+    KeyName
+    AvailabilityZone
+    LaunchTime
+    PublicIpAddress
+    InstanceRegion
+  }
+}
+```
+
+#### 2. Fetch instance data by InstanceID :
+
+```
+query getInstancesByInstanceId {
+  getInstanceByInstanceId(InstanceId: "i-07654797b9d8f4de1") {
+    InstanceId
+    InstanceName
+    InstanceState
+    InstanceType
+    KeyName
+    AvailabilityZone
+    LaunchTime
+    PublicIpAddress
+    InstanceRegion
+  }
+}
+```
+
+#### 3. Fetch instance data by InstanceName :
+
+```
+query getInstanceByName {
+  getInstanceByName(InstanceName: "Testing in Mumbai") {
+    InstanceId
+    InstanceName
+    InstanceState
+    InstanceType
+    KeyName
+    AvailabilityZone
+    LaunchTime
+    PublicIpAddress
+    InstanceRegion
+  }
+}
+```
+
+#### 4. Fetch instance data by InstanceState :
+
+```
+query getInstanceByState{
+  getInstanceByState(InstanceState: "running") {
+    InstanceId
+    InstanceName
+    InstanceState
+    InstanceType
+    KeyName
+    AvailabilityZone
+    LaunchTime
+    PublicIpAddress
+    InstanceRegion
+  }
+}
+```
+
+#### 5. Fetch instance data by InstanceRegion :
+
+```
+query getInstanceByRegion{
+  getInstanceByRegion(InstanceRegion: "ap-south-1") {
+    InstanceId
+    InstanceName
+    InstanceState
+    InstanceType
+    KeyName
+    AvailabilityZone
+    LaunchTime
+    PublicIpAddress
+    InstanceRegion
+  }
+}
+```

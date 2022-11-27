@@ -32,7 +32,7 @@ export async function handler() {
       region: "",
     };
     info.region = regionName;
-    // console.log("Region: " + info.region);
+    // console.log("InstanceRegion: " + info.region);
     var EC2 = new AWS.EC2(info);
     var params = {};
     EC2.describeInstances(params, function (err: any, data: any) {
@@ -42,28 +42,28 @@ export async function handler() {
       }
       data.Reservations.forEach(function (reservation: any) {
         var localData = {
-          InstanceName: "",
-          InstanceId: "",
-          State: "", // State of the instance.
+          InstanceName: "", // Name of the instance
+          InstanceId: "", // Instance ID
+          InstanceState: "", // InstanceState of the instance.
           InstanceType: "", // Type of instance (t2.micro).
           KeyName: "", // Pem file name.
           AvailabilityZone: "", // Object contains availability zone.
           LaunchTime: "", // Time when instance was launched.
           PublicIpAddress: "", // Public IP address of the instance.
-          Region: "", // Region of the instance.
+          InstanceRegion: "", // InstanceRegion of the instance.
         };
-        // console.log(reservation.Instances[0].InstanceId);
+
         reservation.Instances.forEach(function (instance: any) {
           if (instance.InstanceId[0] !== undefined) {
             localData.InstanceName = instance.Tags[0].Value;
             localData.InstanceId = instance.InstanceId;
-            localData.State = instance.State.Name;
+            localData.InstanceState = instance.State.Name;
             localData.InstanceType = instance.InstanceType;
             localData.KeyName = instance.KeyName;
             localData.AvailabilityZone = instance.Placement.AvailabilityZone;
             localData.LaunchTime = instance.LaunchTime.toISOString();
             localData.PublicIpAddress = instance.PublicIpAddress;
-            localData.Region = regionName;
+            localData.InstanceRegion = regionName;
             Ids.push(localData);
           }
         });
@@ -74,7 +74,7 @@ export async function handler() {
   }
   function putItemIntoTable(data: any) {
     // console.log("Data from ec2 instances in put function", data);
-    AWS.config.update({ region: "ap-south-1" });
+    // AWS.config.update({ region: "ap-south-1" });
     var dynamodb = new AWS.DynamoDB();
     data.forEach(function (item: any) {
       var params = {
@@ -82,13 +82,13 @@ export async function handler() {
         Item: {
           InstanceId: { S: item.InstanceId },
           InstanceName: { S: item.InstanceName },
-          State: { S: item.State },
+          InstanceState: { S: item.InstanceState },
           InstanceType: { S: item.InstanceType },
           KeyName: { S: item.KeyName },
           AvailabilityZone: { S: item.AvailabilityZone },
           LaunchTime: { S: item.LaunchTime },
           PublicIpAddress: { S: item.PublicIpAddress },
-          Region: { S: item.Region },
+          InstanceRegion: { S: item.InstanceRegion },
           LastSyncedAt: { S: new Date().toISOString() },
         },
       };

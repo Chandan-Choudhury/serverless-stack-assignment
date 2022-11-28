@@ -34,7 +34,21 @@ export async function handler() {
     info.region = regionName;
     // console.log("InstanceRegion: " + info.region);
     var EC2 = new AWS.EC2(info);
-    var params = {};
+    var params: any = {
+      Filters: [
+        {
+          Name: "instance-state-name",
+          Values: [
+            "pending",
+            "running",
+            "shutting-down",
+            "stopping",
+            "stopped",
+            "terminated",
+          ],
+        },
+      ],
+    };
     EC2.describeInstances(params, function (err: any, data: any) {
       var Ids: any = [];
       if (err) {
@@ -62,7 +76,7 @@ export async function handler() {
             localData.KeyName = instance.KeyName;
             localData.AvailabilityZone = instance.Placement.AvailabilityZone;
             localData.LaunchTime = instance.LaunchTime.toISOString();
-            localData.PublicIpAddress = instance.PublicIpAddress;
+            localData.PublicIpAddress = instance.PublicIpAddress || "NA";
             localData.InstanceRegion = regionName;
             Ids.push(localData);
           }
